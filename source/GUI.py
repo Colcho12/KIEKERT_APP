@@ -47,10 +47,17 @@ class MainWindow(QMainWindow):
         self.form_layout.addRow('Sheet for Writing:', self.sheet_dropdown_write)
         self.layout.addLayout(self.form_layout)
 
+        ## SUBMIT SHEET SELECTION
         self.submit_sheets_button = QPushButton('Submit Sheet Names')
         self.submit_sheets_button.clicked.connect(self.submit_sheets)
         self.submit_sheets_button.setEnabled(False)
         self.layout.addWidget(self.submit_sheets_button)
+
+        ## RUN SOURCE CODE
+        self.process_button = QPushButton('Run Processing')
+        self.process_button.clicked.connect(self.run_processing)
+        self.process_button.setEnabled(False)
+        self.layout.addWidget(self.process_button)
 
         ## data attributes
         self.file_path = None
@@ -82,9 +89,17 @@ class MainWindow(QMainWindow):
             ]
         if all(self.sheet_names):
             self.label_sheets.setText("Sheet names submitted successfully.")
-            # self.process_button.setEnabled(True)            
+            self.process_button.setEnabled(True)            
         else:
             self.label_sheets.setText("Please select all sheet names.")
+
+    def run_processing(self):
+
+        try:
+            ## FASE1
+            fase1.run(self.file_path, self.sheet_names[0], self.sheet_names[1])
+        except Exception as e:
+            self.label_file.setText(f"Error: {str(e)}")
 
 if __name__ == '__main__':
     app = QApplication([])
