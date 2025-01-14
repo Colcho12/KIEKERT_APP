@@ -7,6 +7,8 @@ import fase1
 import fase2
 import fase3
 import pandas as pd
+from datetime import timedelta
+
 
 ## MAIN WINDOW
 class MainWindow(QMainWindow):
@@ -97,7 +99,7 @@ class MainWindow(QMainWindow):
 
         try:
             ## FASE1
-            fase1.run(self.file_path, self.sheet_names[0], self.sheet_names[1])
+            fase1.run(self.file_path, self.sheet_names[-1], self.sheet_names[0])
         except Exception as e:
             self.label_file.setText(f"Error: {str(e)}")
 
